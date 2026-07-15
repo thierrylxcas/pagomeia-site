@@ -1,0 +1,482 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+} = Astro.props;
+---
+
+<!doctype html>
+
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={`${title} | PagoMeia`}
+			description={description}
+			image={heroImage}
+		/>
+	</head>
+
+	<body>
+		<Header />
+
+		<main>
+			<article>
+				<header class="article-header">
+					<div class="article-header-inner">
+						<a class="back-link" href="/blog">
+							← Voltar para os artigos
+						</a>
+
+						<span class="eyebrow">
+							Artigo PagoMeia
+						</span>
+
+						<h1>{title}</h1>
+
+						<p class="description">
+							{description}
+						</p>
+
+						<div class="meta">
+							<span>
+								Publicado em
+								<FormattedDate date={pubDate} />
+							</span>
+
+							{
+								updatedDate && (
+									<span>
+										Atualizado em
+										<FormattedDate date={updatedDate} />
+									</span>
+								)
+							}
+						</div>
+					</div>
+				</header>
+
+				{
+					heroImage && (
+						<div class="hero-image">
+							<Image
+								src={heroImage}
+								alt={title}
+								width={1400}
+								height={788}
+								loading="eager"
+							/>
+						</div>
+					)
+				}
+
+				<div class="article-layout">
+					<div class="prose">
+						<slot />
+					</div>
+
+					<aside class="about-card">
+						<img
+							src="/logo.png"
+							alt="Logo do PagoMeia"
+						/>
+
+						<span>Sobre o PagoMeia</span>
+
+						<h2>
+							A sua meia-entrada para a cultura pop.
+						</h2>
+
+						<p>
+							O PagoMeia reúne críticas, reacts,
+							listas, curiosidades e jogos para quem
+							gosta de cinema, séries, animes e games.
+						</p>
+
+						<a
+							href="https://youtube.com/@pagomeia"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							▶ Conheça o canal
+						</a>
+					</aside>
+				</div>
+
+				<section class="article-footer-cta">
+					<div>
+						<span>Continue explorando</span>
+
+						<h2>
+							Conheça outros conteúdos do PagoMeia
+						</h2>
+
+						<p>
+							Veja mais artigos, descubra nossos jogos
+							e acompanhe os vídeos do canal.
+						</p>
+					</div>
+
+					<div class="cta-actions">
+						<a class="primary" href="/blog">
+							Ver mais artigos
+						</a>
+
+						<a
+							class="secondary"
+							href="https://youtube.com/@pagomeia"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Ir para o YouTube
+						</a>
+					</div>
+				</section>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: min(1500px, calc(100% - 56px));
+		margin: 0 auto;
+		padding: 62px 0 0;
+	}
+
+	.article-header {
+		padding: 54px 0 46px;
+	}
+
+	.article-header-inner {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-flex;
+		margin-bottom: 34px;
+		color: #6d28d9;
+		text-decoration: none;
+		font-size: 14px;
+		font-weight: 800;
+	}
+
+	.eyebrow {
+		display: inline-flex;
+		padding: 8px 14px;
+		border-radius: 999px;
+		background: #efe7ff;
+		color: #6d28d9;
+		font-size: 12px;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	h1 {
+		max-width: 1100px;
+		margin: 24px 0 0;
+		font-size: clamp(44px, 7vw, 92px);
+		line-height: 0.98;
+		letter-spacing: -0.055em;
+	}
+
+	.description {
+		max-width: 860px;
+		margin: 28px 0 0;
+		color: #65606a;
+		font-size: 20px;
+		line-height: 1.7;
+	}
+
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px 24px;
+		margin-top: 30px;
+		color: #8a8490;
+		font-size: 13px;
+	}
+
+	.meta span {
+		display: inline-flex;
+		gap: 5px;
+	}
+
+	.hero-image {
+		overflow: hidden;
+		border-radius: 28px;
+		box-shadow: 0 30px 70px rgba(37, 22, 58, 0.12);
+	}
+
+	.hero-image :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	.article-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 780px) minmax(280px, 360px);
+		gap: 84px;
+		align-items: start;
+		justify-content: center;
+		padding: 70px 0 30px;
+	}
+
+	.prose {
+		min-width: 0;
+		color: #302b34;
+		font-size: 19px;
+		line-height: 1.9;
+	}
+
+	.prose :global(h2) {
+		margin: 58px 0 20px;
+		font-size: 38px;
+		line-height: 1.1;
+		letter-spacing: -0.035em;
+	}
+
+	.prose :global(h3) {
+		margin: 40px 0 16px;
+		font-size: 27px;
+		line-height: 1.2;
+		letter-spacing: -0.025em;
+	}
+
+	.prose :global(p) {
+		margin: 0 0 26px;
+	}
+
+	.prose :global(a) {
+		color: #6d28d9;
+		font-weight: 700;
+	}
+
+	.prose :global(img) {
+		width: 100%;
+		margin: 34px 0;
+		border-radius: 20px;
+	}
+
+	.prose :global(blockquote) {
+		margin: 36px 0;
+		padding: 24px 28px;
+		border-left: 4px solid #7c3aed;
+		border-radius: 0 16px 16px 0;
+		background: #faf7ff;
+		color: #4d4653;
+		font-size: 21px;
+		line-height: 1.7;
+	}
+
+	.prose :global(ul),
+	.prose :global(ol) {
+		margin: 0 0 30px;
+		padding-left: 26px;
+	}
+
+	.prose :global(li) {
+		margin-bottom: 10px;
+	}
+
+	.prose :global(hr) {
+		margin: 48px 0;
+		border: 0;
+		border-top: 1px solid #ece7f3;
+	}
+
+	.about-card {
+		position: sticky;
+		top: 130px;
+		padding: 28px;
+		border: 1px solid #ece7f3;
+		border-radius: 22px;
+		background:
+			radial-gradient(
+				circle at top right,
+				rgba(124, 58, 237, 0.12),
+				transparent 36%
+			),
+			#ffffff;
+		box-shadow: 0 20px 50px rgba(37, 22, 58, 0.07);
+	}
+
+	.about-card img {
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.about-card > span {
+		display: block;
+		margin-top: 22px;
+		color: #7c3aed;
+		font-size: 11px;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	.about-card h2 {
+		margin: 10px 0 0;
+		font-size: 26px;
+		line-height: 1.15;
+		letter-spacing: -0.035em;
+	}
+
+	.about-card p {
+		margin: 16px 0 0;
+		color: #6b6570;
+		font-size: 14px;
+		line-height: 1.7;
+	}
+
+	.about-card a {
+		display: inline-flex;
+		margin-top: 22px;
+		padding: 13px 17px;
+		border-radius: 11px;
+		background: #ff0000;
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 13px;
+		font-weight: 800;
+	}
+
+	.article-footer-cta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 50px;
+		margin-top: 70px;
+		padding: 48px;
+		border-radius: 26px;
+		background:
+			radial-gradient(
+				circle at top right,
+				rgba(192, 132, 252, 0.24),
+				transparent 36%
+			),
+			#17111f;
+		color: #ffffff;
+	}
+
+	.article-footer-cta span {
+		color: #c7a5ff;
+		font-size: 12px;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	.article-footer-cta h2 {
+		max-width: 700px;
+		margin: 10px 0 0;
+		color: #ffffff;
+		font-size: clamp(30px, 4vw, 48px);
+		line-height: 1.05;
+		letter-spacing: -0.04em;
+	}
+
+	.article-footer-cta p {
+		margin: 14px 0 0;
+		color: rgba(255, 255, 255, 0.68);
+		font-size: 15px;
+	}
+
+	.cta-actions {
+		display: flex;
+		flex-shrink: 0;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.cta-actions a {
+		display: inline-flex;
+		padding: 14px 18px;
+		border-radius: 12px;
+		text-decoration: none;
+		font-size: 14px;
+		font-weight: 800;
+	}
+
+	.primary {
+		background: #ffffff;
+		color: #17111f;
+	}
+
+	.secondary {
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		color: #ffffff;
+	}
+
+	@media (max-width: 1050px) {
+		main {
+			width: min(100% - 40px, 900px);
+		}
+
+		.article-layout {
+			grid-template-columns: minmax(0, 760px);
+			gap: 40px;
+		}
+
+		.about-card {
+			position: static;
+		}
+
+		.article-footer-cta {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+	}
+
+	@media (max-width: 700px) {
+		main {
+			width: min(100% - 28px, 620px);
+			padding-top: 30px;
+		}
+
+		.article-header {
+			padding: 36px 0 34px;
+		}
+
+		.description {
+			font-size: 17px;
+		}
+
+		.article-layout {
+			padding-top: 42px;
+		}
+
+		.prose {
+			font-size: 17px;
+		}
+
+		.prose :global(h2) {
+			font-size: 31px;
+		}
+
+		.article-footer-cta {
+			padding: 34px 24px;
+		}
+	}
+</style>

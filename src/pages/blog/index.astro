@@ -1,0 +1,414 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+
+import {
+	SITE_TITLE,
+	SITE_DESCRIPTION
+} from "../../consts";
+
+const posts = (await getCollection("blog")).sort(
+	(a,b)=>
+	b.data.pubDate.valueOf()-a.data.pubDate.valueOf()
+);
+---
+
+<!doctype html>
+
+<html lang="pt-BR">
+
+<head>
+
+<BaseHead
+title={`Blog | ${SITE_TITLE}`}
+description={SITE_DESCRIPTION}
+/>
+
+</head>
+
+<body>
+
+<Header/>
+
+<main class="page">
+
+<section class="hero">
+
+<span>
+
+BLOG
+
+</span>
+
+<h1>
+
+Artigos do PagoMeia
+
+</h1>
+
+<p>
+
+Conteúdos sobre filmes,
+séries,
+animes,
+games,
+listas,
+curiosidades
+e tudo que faz parte do universo do canal.
+
+</p>
+
+</section>
+
+<section class="grid">
+
+{
+
+posts.map(post=>(
+
+<a
+class="card"
+href={`/blog/${post.id}/`}>
+
+{
+
+post.data.heroImage&&(
+
+<Image
+src={post.data.heroImage}
+width={900}
+height={500}
+alt={post.data.title}
+/>
+
+)
+
+}
+
+<div class="content">
+
+<div class="meta">
+
+<span>
+
+Artigo
+
+</span>
+
+<FormattedDate
+date={post.data.pubDate}/>
+
+</div>
+
+<h2>
+
+{post.data.title}
+
+</h2>
+
+<p>
+
+{post.data.description}
+
+</p>
+
+<div class="read">
+
+Ler artigo →
+
+</div>
+
+</div>
+
+</a>
+
+))
+
+}
+
+</section>
+
+</main>
+
+<Footer/>
+
+</body>
+
+</html>
+
+<style>
+
+.page{
+
+width:min(1500px,calc(100% - 64px));
+
+margin:auto;
+
+padding:60px 0 90px;
+
+}
+
+.hero{
+
+max-width:900px;
+
+margin:0 auto 70px;
+
+text-align:center;
+
+}
+
+.hero span{
+
+display:inline-block;
+
+padding:8px 16px;
+
+border-radius:999px;
+
+background:#efe7ff;
+
+color:#6d28d9;
+
+font-size:12px;
+
+font-weight:800;
+
+letter-spacing:.08em;
+
+text-transform:uppercase;
+
+}
+
+.hero h1{
+
+margin:24px 0 20px;
+
+font-size:clamp(52px,7vw,88px);
+
+line-height:.95;
+
+letter-spacing:-.05em;
+
+}
+
+.hero p{
+
+max-width:760px;
+
+margin:auto;
+
+color:#666;
+
+font-size:20px;
+
+line-height:1.8;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,minmax(0,1fr));
+
+gap:34px;
+
+align-items:start;
+
+}
+
+.card{
+
+display:flex;
+
+flex-direction:column;
+
+overflow:hidden;
+
+border:1px solid #ece7f3;
+
+border-radius:24px;
+
+background:#fff;
+
+text-decoration:none;
+
+color:#111;
+
+transition:.25s;
+
+box-shadow:0 14px 40px rgba(0,0,0,.04);
+
+}
+
+.card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 24px 60px rgba(0,0,0,.08);
+
+border-color:#7c3aed;
+
+}
+
+.card img{
+
+width:100%;
+
+aspect-ratio:16/9;
+
+object-fit:cover;
+
+display:block;
+
+transition:.35s;
+
+}
+
+.card:hover img{
+
+transform:scale(1.03);
+
+}
+
+.content{
+
+padding:24px;
+
+display:flex;
+
+flex-direction:column;
+
+height:100%;
+
+}
+
+.meta{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:18px;
+
+font-size:12px;
+
+color:#888;
+
+}
+
+.meta span{
+
+padding:5px 10px;
+
+border-radius:999px;
+
+background:#efe7ff;
+
+color:#6d28d9;
+
+font-weight:700;
+
+}
+
+.content h2{
+
+margin:0;
+
+font-size:30px;
+
+line-height:1.15;
+
+letter-spacing:-.03em;
+
+}
+
+.content p{
+
+margin:18px 0 28px;
+
+color:#666;
+
+line-height:1.8;
+
+flex:1;
+
+}
+
+.read{
+
+font-weight:800;
+
+color:#6d28d9;
+
+transition:.2s;
+
+}
+
+.card:hover .read{
+
+transform:translateX(6px);
+
+}
+
+@media(max-width:1000px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.page{
+
+width:min(100% - 28px,600px);
+
+padding:36px 0 60px;
+
+}
+
+.hero{
+
+margin-bottom:45px;
+
+}
+
+.hero h1{
+
+font-size:54px;
+
+}
+
+.hero p{
+
+font-size:17px;
+
+}
+
+.content{
+
+padding:20px;
+
+}
+
+.content h2{
+
+font-size:24px;
+
+}
+
+}
+
+</style>

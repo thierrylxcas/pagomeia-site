@@ -1,0 +1,184 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/Hero.astro";
+import Projects from "../components/Projects.astro";
+import ArticlesSidebar from "../components/ArticlesSidebar.astro";
+
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+	.sort(
+		(a, b) =>
+			b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+	)
+	.slice(0, 5);
+---
+
+<!doctype html>
+
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={SITE_TITLE}
+			description={SITE_DESCRIPTION}
+		/>
+	</head>
+
+	<body>
+		<Header />
+
+		<main class="page">
+			<Hero />
+
+			<section class="home-grid">
+				<div class="main-column">
+					<Projects />
+				</div>
+
+				<div class="sidebar-column">
+					<ArticlesSidebar posts={posts} />
+				</div>
+			</section>
+
+	
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.page {
+		width: min(1500px, calc(100% - 64px));
+		margin: 0 auto;
+		padding: 0 0 80px;
+	}
+
+	.home-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.8fr) minmax(340px, 1fr);
+		gap: 56px;
+		align-items: start;
+		margin-top: 40px;
+	}
+
+	.main-column,
+	.sidebar-column {
+		min-width: 0;
+	}
+
+	.sidebar-column {
+		position: sticky;
+		top: 125px;
+	}
+
+	.about {
+		margin-top: 100px;
+		padding: 64px;
+		border-radius: 28px;
+		background:
+			radial-gradient(
+				circle at top right,
+				rgba(168, 85, 247, 0.18),
+				transparent 35%
+			),
+			linear-gradient(
+				135deg,
+				#16121e,
+				#25163a
+			);
+		color: white;
+	}
+
+	.about-content {
+		max-width: 850px;
+	}
+
+	.section-label {
+		display: inline-block;
+		margin-bottom: 20px;
+		padding: 8px 14px;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.08);
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	.about h2 {
+		margin: 0 0 24px;
+		color: white;
+		font-size: clamp(36px, 5vw, 62px);
+		line-height: 1;
+		letter-spacing: -0.04em;
+	}
+
+	.about p {
+		max-width: 760px;
+		margin: 0 0 18px;
+		color: rgba(255, 255, 255, 0.76);
+		font-size: 18px;
+		line-height: 1.8;
+	}
+
+	.about-button {
+		display: inline-flex;
+		margin-top: 20px;
+		padding: 15px 22px;
+		border-radius: 12px;
+		background: white;
+		color: #17111f;
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: 800;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.about-button:hover {
+		color: #17111f;
+		transform: translateY(-3px);
+		box-shadow: 0 16px 30px rgba(0, 0, 0, 0.22);
+	}
+
+	@media (max-width: 1050px) {
+		.page {
+			width: min(100% - 40px, 900px);
+		}
+
+		.home-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.sidebar-column {
+			position: static;
+		}
+	}
+
+	@media (max-width: 700px) {
+		.page {
+			width: min(100% - 28px, 600px);
+		}
+
+		.home-grid {
+			gap: 36px;
+			margin-top: 20px;
+		}
+
+		.about {
+			margin-top: 70px;
+			padding: 36px 24px;
+			border-radius: 22px;
+		}
+
+		.about p {
+			font-size: 16px;
+		}
+	}
+</style>
