@@ -5,9 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://pagomeia.com.br',
-  integrations: [
-    mdx(),
-    sitemap(),
-  ],
+	site: 'https://thierrylxcas.github.io',
+	base: '/pagomeia-site',
+	integrations: [mdx(), sitemap()],
 });
