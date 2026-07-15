@@ -2,11 +2,11 @@
 const { posts = [] } = Astro.props;
 
 const getImageSrc = (image) => {
-	if (!image) return "/logo.png";
+	if (!image) return `${base}logo.png`;
 	return typeof image === "string" ? image : image.src;
 };
 ---
-
+const base = import.meta.env.BASE_URL;
 <aside class="sidebar">
 	<div class="heading">
 		<div>
@@ -47,7 +47,7 @@ const getImageSrc = (image) => {
 				))
 			) : (
 				<div class="empty">
-					<img src="/logo.png" alt="Logo PagoMeia" />
+					<img src={`${base}logo.png`} alt="Logo PagoMeia" />
 
 					<h3>Os artigos aparecem aqui</h3>
 
