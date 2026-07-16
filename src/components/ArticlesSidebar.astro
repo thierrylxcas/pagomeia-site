@@ -5,19 +5,16 @@ import logo from "../assets/logo.png";
 const { posts = [] } = Astro.props;
 
 const getImageSrc = (image) => {
-	if (!image) return logo;
+	if (!image) return null;
 
-	return image;
+	if (typeof image === "string") {
+		return image;
+	}
+
+	return image.src;
 };
 ---
 
-<Image
-	src={logo}
-	alt="Logo PagoMeia"
-	width={80}
-	height={80}
-/>
----
 <aside class="sidebar">
 	<div class="heading">
 		<div>
@@ -31,37 +28,54 @@ const getImageSrc = (image) => {
 	<div class="articles">
 		{
 			posts.length > 0 ? (
-				posts.map((post) => (
-					<a class="article" href={`/blog/${post.id}/`}>
-						<img
-							src={getImageSrc(post.data.heroImage)}
-							alt={post.data.title}
-							loading="lazy"
-						/>
+				posts.map((post) => {
+					const imageSrc = getImageSrc(post.data.heroImage);
 
-						<div class="article-content">
-							<span class="category">PagoMeia</span>
+					return (
+						<a class="article" href={`/blog/${post.id}/`}>
+							{
+								imageSrc ? (
+									<img
+										src={imageSrc}
+										alt={post.data.title}
+										loading="lazy"
+									/>
+								) : (
+									<Image
+										src={logo}
+										alt="Logo PagoMeia"
+										width={130}
+										height={94}
+									/>
+								)
+							}
 
-							<h3>{post.data.title}</h3>
+							<div class="article-content">
+								<span class="category">PagoMeia</span>
 
-							<p>{post.data.description}</p>
+								<h3>{post.data.title}</h3>
 
-							<small>
-								{post.data.pubDate.toLocaleDateString("pt-BR", {
-									day: "2-digit",
-									month: "short",
-									year: "numeric",
-								})}
-							</small>
-						</div>
-					</a>
-				))
+								<p>{post.data.description}</p>
+
+								<small>
+									{post.data.pubDate.toLocaleDateString("pt-BR", {
+										day: "2-digit",
+										month: "short",
+										year: "numeric",
+									})}
+								</small>
+							</div>
+						</a>
+					);
+				})
 			) : (
 				<div class="empty">
-				<img
-	src={`${base}logo.png`}
-	alt="Logo PagoMeia"
-/>
+					<Image
+						src={logo}
+						alt="Logo PagoMeia"
+						width={80}
+						height={80}
+					/>
 
 					<h3>Os artigos aparecem aqui</h3>
 
@@ -142,7 +156,8 @@ const getImageSrc = (image) => {
 		transform: translateX(4px);
 	}
 
-	.article img {
+	.article img,
+	.article :global(img) {
 		width: 130px;
 		height: 94px;
 		border-radius: 12px;
@@ -223,7 +238,7 @@ const getImageSrc = (image) => {
 		text-align: center;
 	}
 
-	.empty img {
+	.empty :global(img) {
 		width: 72px;
 		height: 72px;
 		border-radius: 50%;
@@ -260,7 +275,8 @@ const getImageSrc = (image) => {
 			grid-template-columns: 105px minmax(0, 1fr);
 		}
 
-		.article img {
+		.article img,
+		.article :global(img) {
 			width: 105px;
 			height: 84px;
 		}
