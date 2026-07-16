@@ -3,20 +3,18 @@ import { Image } from "astro:assets";
 import logo from "../assets/logo.png";
 ---
 
-<img
-	src={`${base}logo.png`}
-	alt="Logo PagoMeia"
-/>
 <footer>
 	<div class="gradient"></div>
 
 	<div class="footer-main">
 		<div class="container">
 			<div class="brand">
-				<img
-	src={`${base}logo.png`}
-	alt="Logo do PagoMeia"
-/>
+				<Image
+					src={logo}
+					alt="Logo do PagoMeia"
+					width={66}
+					height={66}
+				/>
 
 				<div class="brand-copy">
 					<h3>PagoMeia</h3>
@@ -105,7 +103,7 @@ import logo from "../assets/logo.png";
 		gap: 18px;
 	}
 
-	.brand img {
+	.brand :global(img) {
 		width: 66px;
 		height: 66px;
 		flex-shrink: 0;
@@ -199,7 +197,7 @@ import logo from "../assets/logo.png";
 			padding: 38px 0 32px;
 		}
 
-		.brand img {
+		.brand :global(img) {
 			width: 58px;
 			height: 58px;
 		}
