@@ -2,19 +2,18 @@
 import { Image } from "astro:assets";
 import heroImage from "../assets/theboys.jpg";
 ---
-<Image
-	src={heroImage}
-	alt="Conteúdo em destaque do canal PagoMeia"
-	width={1280}
-	height={720}
-/>
+
 <section class="hero">
 	<div class="content">
-		<span class="eyebrow">Cinema • Séries • Games • Reacts</span>
+		<span class="eyebrow">
+			Cinema • Séries • Games • Reacts
+		</span>
 
 		<h1>PagoMeia</h1>
 
-		<h2>A sua meia-entrada para a cultura pop.</h2>
+		<h2>
+			A sua meia-entrada para a cultura pop.
+		</h2>
 
 		<p>
 			Críticas, reacts, listas, curiosidades e jogos para quem ama
@@ -61,9 +60,12 @@ import heroImage from "../assets/theboys.jpg";
 			target="_blank"
 			rel="noopener noreferrer"
 		>
-			<img
-				src="/images/hero/theboys.jpg"
+			<Image
+				src={heroImage}
 				alt="Conteúdo em destaque do canal PagoMeia"
+				width={1280}
+				height={720}
+				loading="eager"
 			/>
 
 			<div class="video-overlay">
@@ -148,13 +150,13 @@ import heroImage from "../assets/theboys.jpg";
 
 	.youtube {
 		background: #ff0000;
-		color: white;
+		color: #ffffff;
 		box-shadow: 0 14px 30px rgba(255, 0, 0, 0.2);
 	}
 
 	.games {
 		background: #17111f;
-		color: white;
+		color: #ffffff;
 		box-shadow: 0 14px 30px rgba(23, 17, 31, 0.14);
 	}
 
@@ -169,7 +171,7 @@ import heroImage from "../assets/theboys.jpg";
 		padding: 18px;
 		border: 1px solid #ece7f3;
 		border-radius: 16px;
-		background: white;
+		background: #ffffff;
 	}
 
 	.highlights strong,
@@ -188,6 +190,10 @@ import heroImage from "../assets/theboys.jpg";
 		line-height: 1.45;
 	}
 
+	.visual {
+		min-width: 0;
+	}
+
 	.video-card {
 		position: relative;
 		display: block;
@@ -195,21 +201,22 @@ import heroImage from "../assets/theboys.jpg";
 		border: 3px solid transparent;
 		border-radius: 28px;
 		background:
-			linear-gradient(#fff, #fff) padding-box,
+			linear-gradient(#ffffff, #ffffff) padding-box,
 			linear-gradient(135deg, #7c3aed, #ec4899, #ff0000) border-box;
 		box-shadow: 0 34px 80px rgba(40, 20, 68, 0.18);
 		text-decoration: none;
 	}
 
-	.video-card img {
+	.video-card :global(img) {
 		display: block;
 		width: 100%;
-		aspect-ratio: 16 / 10;
+		height: auto;
+		aspect-ratio: 16 / 9;
 		object-fit: cover;
 		transition: transform 0.35s ease;
 	}
 
-	.video-card:hover img {
+	.video-card:hover :global(img) {
 		transform: scale(1.035);
 	}
 
@@ -224,7 +231,7 @@ import heroImage from "../assets/theboys.jpg";
 		padding: 16px;
 		border-radius: 16px;
 		background: rgba(20, 14, 28, 0.88);
-		color: white;
+		color: #ffffff;
 		backdrop-filter: blur(12px);
 	}
 
