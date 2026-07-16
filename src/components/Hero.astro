@@ -1,6 +1,13 @@
 ---
-const base = import.meta.env.BASE_URL;
+import { Image } from "astro:assets";
+import heroImage from "../assets/hero.jpg";
 ---
+<Image
+	src={heroImage}
+	alt="Conteúdo em destaque do canal PagoMeia"
+	width={1280}
+	height={720}
+/>
 <section class="hero">
 	<div class="content">
 		<span class="eyebrow">Cinema • Séries • Games • Reacts</span>
@@ -55,7 +62,7 @@ const base = import.meta.env.BASE_URL;
 			rel="noopener noreferrer"
 		>
 			<img
-				src="/images/hero/testethumb.png"
+				src="/images/hero/theboys.jpg"
 				alt="Conteúdo em destaque do canal PagoMeia"
 			/>
 

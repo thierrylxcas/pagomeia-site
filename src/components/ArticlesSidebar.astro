@@ -1,23 +1,23 @@
 ---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+
 const { posts = [] } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
-
 const getImageSrc = (image) => {
-	if (!image) return `${base}logo.png`;
+	if (!image) return logo;
 
-	if (typeof image === "string") {
-		if (image.startsWith("/")) {
-			return `${base}${image.slice(1)}`;
-		}
-
-		return image;
-	}
-
-	return image.src;
+	return image;
 };
 ---
-const base = import.meta.env.BASE_URL;
+
+<Image
+	src={logo}
+	alt="Logo PagoMeia"
+	width={80}
+	height={80}
+/>
+---
 <aside class="sidebar">
 	<div class="heading">
 		<div>
