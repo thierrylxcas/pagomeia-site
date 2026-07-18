@@ -11,6 +11,6 @@ tags:
   - Cultura Pop
   - Reviews
 readingTime: 5 min
-featured: false
+featured: true
 ---
 MLK MUITO FODA
