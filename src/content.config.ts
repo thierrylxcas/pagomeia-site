@@ -21,6 +21,7 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     readingTime: z.string().default("5 min"),
     featured: z.boolean().default(false),
+	youtube: z.string().optional(),
   }),
 });
 

@@ -71,6 +71,11 @@ content:
             - webp
           rename: safe
 
+      - name: youtube
+        label: Vídeo do YouTube
+        type: text
+        description: Cole o link completo do vídeo
+
       - name: author
         label: Autor
         type: string
