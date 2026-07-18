@@ -1,0 +1,131 @@
+media:
+  input: public/images
+  output: /images
+  rename: safe
+  categories:
+    - image
+
+content:
+  - name: blog
+    label: Artigos
+    type: collection
+    path: src/content/blog
+
+    filename: "{fields.slug}.md"
+
+    view:
+      fields:
+        - title
+        - category
+        - pubDate
+        - featured
+
+      primary: title
+      sort:
+        - pubDate
+        - title
+
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+
+      - name: slug
+        label: Endereço do artigo
+        type: string
+        required: true
+        description: "Use letras minúsculas e hífens. Exemplo: o-que-e-o-pagomeia"
+
+      - name: description
+        label: Descrição
+        type: text
+        required: true
+        description: "Resumo curto usado nos cards do blog e no Google."
+
+      - name: pubDate
+        label: Data de publicação
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: updatedDate
+        label: Última atualização
+        type: date
+        required: false
+        default: ""
+        options:
+          format: yyyy-MM-dd
+
+      - name: heroImage
+        label: Imagem de capa
+        type: image
+        required: false
+        options:
+          path: blog
+          extensions:
+            - jpg
+            - jpeg
+            - png
+            - webp
+          rename: safe
+
+      - name: author
+        label: Autor
+        type: string
+        required: true
+        default: Equipe PagoMeia
+
+      - name: category
+        label: Categoria
+        type: select
+        required: true
+        default: Cultura Pop
+        options:
+          values:
+            - Filmes
+            - Séries
+            - Animes
+            - Games
+            - Terror
+            - Cultura Pop
+            - Listas
+
+      - name: tags
+        label: Tags
+        type: select
+        required: false
+        options:
+          multiple: true
+          values:
+            - Cinema
+            - Filmes
+            - Séries
+            - Streaming
+            - Animes
+            - Games
+            - Terror
+            - Cultura Pop
+            - Reviews
+            - Listas
+            - Curiosidades
+            - PagoMeia
+
+      - name: readingTime
+        label: Tempo de leitura
+        type: string
+        required: true
+        default: 5 min
+        description: "Exemplo: 5 min"
+
+      - name: featured
+        label: Artigo em destaque
+        type: boolean
+        required: true
+        default: false
+
+      - name: body
+        label: Conteúdo do artigo
+        type: rich-text
+        required: true
