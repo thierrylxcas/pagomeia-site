@@ -1,25 +1,19 @@
 ---
-title: "O que é o PagoMeia?"
-description: "Conheça a história do PagoMeia, um projeto independente de cultura pop criado por amigos apaixonados por filmes, séries, games e entretenimento."
-
+title: O que é o PagoMeia?
+slug: o-que-e-o-pagomeia
+description: Conheça a história do PagoMeia, um projeto independente de cultura
+  pop criado por amigos apaixonados por filmes, séries, games e entretenimento.
 pubDate: 2026-07-16
-
-heroImage: "/images/theboys.jpg"
-
-author: "Equipe PagoMeia"
-role: "Equipe Editorial"
-
-category: "Sobre o projeto"
-
+heroImage: /images/theboys.jpg
+author: Equipe PagoMeia
+category: Cultura Pop
 tags:
   - PagoMeia
   - Cultura Pop
   - Cinema
-
+readingTime: 5 min
 featured: true
-draft: false
 ---
-
 # O que é o PagoMeia?
 
 Se você chegou aqui esperando encontrar um texto dizendo que somos apaixonados pela sétima arte, apreciadores do cinema europeu e especialistas em fotografia... calma.
@@ -34,7 +28,7 @@ O **PagoMeia** nasceu porque um grupo de amigos passava mais tempo discutindo fi
 
 Desde então, o projeto cresceu e passou a reunir críticas, reacts, teorias, listas, desafios, coberturas de eventos e tudo aquilo que rende uma boa conversa depois dos créditos.
 
-## Quem faz essa bagunça?
+## Quem faz essa baguncinha?
 
 O elenco principal é formado por:
 
@@ -45,7 +39,7 @@ O elenco principal é formado por:
 
 Mas a verdade é que o PagoMeia nunca teve um elenco totalmente fechado.
 
-Sempre aparece um amigo, um convidado ou alguém que simplesmente resolveu sentar na gravação e participar da discussão. Então é bem provável que você encontre mais gente aparecendo pelos vídeos do que essa lista faz parecer.
+Sempre aparece um amigo, um convidado ou alguém que simplesmente resolveu colar na gravação e participar da discussão. Então é bem provável que você encontre mais gente aparecendo pelos vídeos do que essa lista faz parecer.
 
 ## Então qual é a ideia do canal?
 
@@ -55,13 +49,13 @@ Não era isso que a gente queria.
 
 O PagoMeia nasceu para falar de cultura pop de um jeito mais leve. Aqui ninguém precisa decorar nome de diretor, saber a diferença entre dezenas de movimentos cinematográficos ou fingir que gostou de um filme só porque a crítica gostou.
 
-Se o filme é bom, a gente comemora.
+Se o filme é bom, a gente comemora, solta fogos e faz uma farra.
 
-Se é ruim... melhor ainda. Porque normalmente rende um vídeo muito mais divertido.
+Se é ruim... melhor ainda. Porque normalmente rende um vídeo muito mais divertido (Despejar um ódiozinho é libertador.
 
-## Sem glamour. Sem pose.
+## Profissional mas nem tanto.
 
-Também não espere um estúdio gigantesco.
+Não espere um estúdio gigantesco.
 
 Não espere aquele chroma key que parece cenário de programa de televisão.
 
@@ -71,7 +65,7 @@ A gente adoraria.
 
 O problema é que ainda estamos aceitando doações imaginárias.
 
-O projeto sempre foi muito mais sobre as pessoas do que sobre equipamentos. Preferimos uma conversa divertida gravada entre amigos do que um vídeo perfeito onde ninguém consegue dar uma risada.
+O projeto sempre foi muito mais sobre as pessoas do que sobre equipamentos. Preferimos uma conversa divertida gravada entre amigos do que um vídeo perfeito onde ninguém gargalha com os dentes amostra.
 
 ## O que você vai encontrar por aqui?
 
