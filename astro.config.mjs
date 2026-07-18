@@ -1,11 +1,10 @@
 // @ts-check
 
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import { defineConfig } from 'astro/config';
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
-	site: 'https://thierrylxcas.github.io',
-	base: '/pagomeia-site',
+	site: "https://pagomeia.com",
 	integrations: [mdx(), sitemap()],
 });
