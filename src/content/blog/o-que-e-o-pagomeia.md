@@ -4,7 +4,7 @@ description: "Conheça a história do PagoMeia, um projeto independente de cultu
 
 pubDate: 2026-07-16
 
-heroImage: "../../assets/theboys.jpg"
+heroImage: "/images/theboys.jpg"
 
 author: "Equipe PagoMeia"
 role: "Equipe Editorial"
