@@ -51,7 +51,7 @@ O PagoMeia nasceu para falar de cultura pop de um jeito mais leve. Aqui ninguém
 
 Se o filme é bom, a gente comemora, solta fogos e faz uma farra.
 
-Se é ruim... melhor ainda. Porque normalmente rende um vídeo muito mais divertido (Despejar um ódiozinho é libertador.
+Se é ruim... melhor ainda. Porque normalmente rende um vídeo muito mais divertido.
 
 ## Profissional mas nem tanto.
 
