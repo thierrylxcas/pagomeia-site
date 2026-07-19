@@ -1,6 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
+import {
+	getCollection,
+	type CollectionEntry,
+} from "astro:content";
 
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
@@ -27,7 +30,7 @@ let videoId = "";
 
 if (youtube) {
 	const match = youtube.match(
-		/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/,
+		/(?:youtube\.com\/watch\?v=|youtube\.com\/shorts\/|youtu\.be\/)([^&?/]+)/,
 	);
 
 	videoId = match?.[1] ?? youtube;
@@ -44,6 +47,62 @@ const wordCount = content
 	.filter(Boolean).length;
 
 const readingTime = Math.max(1, Math.ceil(wordCount / 220));
+
+/*
+ * ARTIGOS RECOMENDADOS
+ *
+ * 1. Remove o artigo atual.
+ * 2. Ordena pelos mais recentes.
+ * 3. Seleciona primeiro artigos de categorias diferentes.
+ * 4. Completa até 3 recomendações caso não existam 3 categorias.
+ */
+
+const allPosts = (await getCollection("blog"))
+	.filter((post) => post.data.pubDate <= new Date())
+	.filter((post) => post.data.title !== title)
+	.sort(
+		(a, b) =>
+			b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
+
+const relatedPosts: CollectionEntry<"blog">[] = [];
+const selectedCategories = new Set<string>();
+
+for (const post of allPosts) {
+	const postCategory = post.data.category?.trim().toLowerCase();
+
+	if (
+		postCategory &&
+		!selectedCategories.has(postCategory) &&
+		relatedPosts.length < 3
+	) {
+		relatedPosts.push(post);
+		selectedCategories.add(postCategory);
+	}
+}
+
+if (relatedPosts.length < 3) {
+	const selectedIds = new Set(relatedPosts.map((post) => post.id));
+
+	for (const post of allPosts) {
+		if (
+			!selectedIds.has(post.id) &&
+			relatedPosts.length < 3
+		) {
+			relatedPosts.push(post);
+			selectedIds.add(post.id);
+		}
+	}
+}
+
+const featuredPost = relatedPosts[0];
+const secondaryPosts = relatedPosts.slice(1, 3);
+
+const getPostSlug = (postId: string) =>
+	postId.replace(/\.(md|mdx)$/i, "");
+
+const getPostUrl = (postId: string) =>
+	`${base}blog/${getPostSlug(postId)}/`;
 ---
 
 <!doctype html>
@@ -105,7 +164,8 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 								{
 									updatedDate && (
 										<span>
-											Atualizado em <FormattedDate date={updatedDate} />
+											Atualizado em{" "}
+											<FormattedDate date={updatedDate} />
 										</span>
 									)
 								}
@@ -134,27 +194,178 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 					</div>
 
 					{
-	videoId && (
-		<div class="youtube-video">
-			<iframe
-				src={`https://www.youtube.com/embed/${videoId}`}
-				title={title}
-				loading="lazy"
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-				allowfullscreen
-			/>
-		</div>
-	)
-}
+						videoId && (
+							<div class="youtube-video">
+								<iframe
+									src={`https://www.youtube.com/embed/${videoId}`}
+									title={title}
+									loading="lazy"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									allowfullscreen
+								/>
+							</div>
+						)
+					}
 
 					{
 						tags.length > 0 && (
 							<section class="tags">
-								<span class="tags-title">Assuntos deste artigo</span>
+								<span class="tags-title">
+									Assuntos deste artigo
+								</span>
 
 								<div class="tag-list">
-									{tags.map((tag) => <span>#{tag}</span>)}
+									{
+										tags.map((tag) => (
+											<span>#{tag}</span>
+										))
+									}
 								</div>
+							</section>
+						)
+					}
+
+					{
+						featuredPost && (
+							<section
+								class="related-posts"
+								aria-labelledby="related-title"
+							>
+								<div class="related-heading">
+									<span class="related-eyebrow">
+										Novos artigos do PagoMeia
+									</span>
+
+									<h2 id="related-title">
+										🎬 Continue explorando
+									</h2>
+
+									<p>
+										Filmes, séries, terror, games e outros
+										assuntos da cultura pop.
+									</p>
+								</div>
+
+								<a
+									class="related-featured"
+									href={getPostUrl(featuredPost.id)}
+									aria-label={`Ler artigo: ${featuredPost.data.title}`}
+								>
+									<div class="related-image">
+										{
+											featuredPost.data.heroImage ? (
+												<img
+													src={
+														featuredPost.data
+															.heroImage
+													}
+													alt=""
+													loading="lazy"
+												/>
+											) : (
+												<div class="image-placeholder">
+													🎬
+												</div>
+											)
+										}
+									</div>
+
+									<div class="featured-content">
+										<span class="related-category">
+											{featuredPost.data.category}
+										</span>
+
+										<h3>
+											{featuredPost.data.title}
+										</h3>
+
+										<p>
+											{
+												featuredPost.data
+													.description
+											}
+										</p>
+
+										<span class="related-link">
+											🍿 Continuar lendo
+											<span aria-hidden="true">→</span>
+										</span>
+									</div>
+								</a>
+
+								{
+									secondaryPosts.length > 0 && (
+										<div class="related-grid">
+											{
+												secondaryPosts.map(
+													(post) => (
+														<a
+															class="related-card"
+															href={getPostUrl(
+																post.id,
+															)}
+															aria-label={`Ler artigo: ${post.data.title}`}
+														>
+															<div class="related-image">
+																{
+																	post.data
+																		.heroImage ? (
+																		<img
+																			src={
+																				post
+																					.data
+																					.heroImage
+																			}
+																			alt=""
+																			loading="lazy"
+																		/>
+																	) : (
+																		<div class="image-placeholder">
+																			🎟
+																		</div>
+																	)
+																}
+															</div>
+
+															<div class="card-content">
+																<span class="related-category">
+																	{
+																		post
+																			.data
+																			.category
+																	}
+																</span>
+
+																<h3>
+																	{
+																		post
+																			.data
+																			.title
+																	}
+																</h3>
+
+																<p>
+																	{
+																		post
+																			.data
+																			.description
+																	}
+																</p>
+
+																<span class="related-link">
+																	Descobrir
+																	<span aria-hidden="true">
+																		→
+																	</span>
+																</span>
+															</div>
+														</a>
+													),
+												)
+											}
+										</div>
+									)
+								}
 							</section>
 						)
 					}
@@ -172,12 +383,13 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 								<span>Continua a conversa</span>
 
 								<h2>
-									Esse assunto provavelmente renderia uma discussão no canal.
+									Esse assunto provavelmente renderia uma
+									discussão no canal.
 								</h2>
 
 								<p>
-									Conheça os vídeos, reacts, críticas e outras ideias
-									questionáveis do PagoMeia.
+									Conheça os vídeos, reacts, críticas e outras
+									ideias questionáveis do PagoMeia.
 								</p>
 							</div>
 						</div>
@@ -414,6 +626,20 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 		border-top: 1px solid #ece7f3;
 	}
 
+	.youtube-video {
+		margin: 50px 0;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		border-radius: 18px;
+		box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+	}
+
+	.youtube-video iframe {
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
 	.tags {
 		margin-top: 60px;
 		padding-top: 30px;
@@ -443,6 +669,223 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 		color: #6d28d9;
 		font-size: 13px;
 		font-weight: 700;
+	}
+
+	.related-posts {
+		margin-top: 70px;
+		padding-top: 42px;
+		border-top: 1px solid #ece7f3;
+	}
+
+	.related-heading {
+		margin-bottom: 28px;
+	}
+
+	.related-eyebrow {
+		display: block;
+		margin-bottom: 9px;
+		color: #7c3aed;
+		font-size: 11px;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
+
+	.related-heading h2 {
+		margin: 0;
+		color: #17131b;
+		font-size: 36px;
+		line-height: 1.1;
+		letter-spacing: -0.04em;
+	}
+
+	.related-heading p {
+		margin: 12px 0 0;
+		color: #817a86;
+		font-size: 14px;
+		line-height: 1.6;
+	}
+
+	.related-featured,
+	.related-card {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.related-featured {
+		display: block;
+		overflow: hidden;
+		border: 1px solid #e9e2f2;
+		border-radius: 24px;
+		background: #ffffff;
+		box-shadow: 0 15px 40px rgba(39, 22, 56, 0.07);
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease,
+			border-color 0.3s ease;
+	}
+
+	.related-featured:hover {
+		transform: translateY(-5px);
+		border-color: #d8c7ee;
+		box-shadow: 0 25px 55px rgba(39, 22, 56, 0.13);
+	}
+
+	.related-image {
+		position: relative;
+		overflow: hidden;
+		background:
+			radial-gradient(
+				circle at top right,
+				rgba(192, 132, 252, 0.35),
+				transparent 45%
+			),
+			#211529;
+	}
+
+	.related-featured .related-image {
+		aspect-ratio: 16 / 8;
+	}
+
+	.related-card .related-image {
+		aspect-ratio: 16 / 9;
+	}
+
+	.related-image img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.45s ease;
+	}
+
+	.related-featured:hover .related-image img,
+	.related-card:hover .related-image img {
+		transform: scale(1.055);
+	}
+
+	.image-placeholder {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		place-items: center;
+		color: #ffffff;
+		font-size: 50px;
+	}
+
+	.featured-content {
+		padding: 27px 29px 30px;
+	}
+
+	.related-category {
+		display: block;
+		margin-bottom: 9px;
+		color: #7c3aed;
+		font-size: 11px;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.09em;
+		transition: color 0.25s ease;
+	}
+
+	.related-featured:hover .related-category,
+	.related-card:hover .related-category {
+		color: #a855f7;
+	}
+
+	.related-featured h3,
+	.related-card h3 {
+		color: #17131b;
+		letter-spacing: -0.035em;
+	}
+
+	.related-featured h3 {
+		margin: 0;
+		font-size: 31px;
+		line-height: 1.12;
+	}
+
+	.related-featured p {
+		margin: 13px 0 0;
+		color: #6f6874;
+		font-size: 15px;
+		line-height: 1.7;
+	}
+
+	.related-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 20px;
+		color: #6d28d9;
+		font-size: 13px;
+		font-weight: 900;
+	}
+
+	.related-link span {
+		transition: transform 0.25s ease;
+	}
+
+	.related-featured:hover .related-link span,
+	.related-card:hover .related-link span {
+		transform: translateX(5px);
+	}
+
+	.related-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 20px;
+		margin-top: 20px;
+	}
+
+	.related-card {
+		display: flex;
+		min-width: 0;
+		overflow: hidden;
+		flex-direction: column;
+		border: 1px solid #e9e2f2;
+		border-radius: 20px;
+		background: #ffffff;
+		box-shadow: 0 12px 30px rgba(39, 22, 56, 0.055);
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease,
+			border-color 0.3s ease;
+	}
+
+	.related-card:hover {
+		transform: translateY(-5px);
+		border-color: #d8c7ee;
+		box-shadow: 0 20px 42px rgba(39, 22, 56, 0.11);
+	}
+
+	.card-content {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		padding: 21px;
+	}
+
+	.related-card h3 {
+		margin: 0;
+		font-size: 21px;
+		line-height: 1.18;
+	}
+
+	.related-card p {
+		display: -webkit-box;
+		margin: 11px 0 0;
+		overflow: hidden;
+		color: #746d79;
+		font-size: 13px;
+		line-height: 1.6;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+	}
+
+	.related-card .related-link {
+		margin-top: auto;
+		padding-top: 18px;
 	}
 
 	.channel-cta {
@@ -548,6 +991,10 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 			margin-bottom: 26px;
 		}
 
+		h1 {
+			font-size: clamp(42px, 13vw, 62px);
+		}
+
 		.description {
 			font-size: 17px;
 		}
@@ -582,6 +1029,35 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 			font-size: 25px;
 		}
 
+		.related-posts {
+			margin-top: 56px;
+			padding-top: 34px;
+		}
+
+		.related-heading h2 {
+			font-size: 30px;
+		}
+
+		.related-featured .related-image {
+			aspect-ratio: 16 / 10;
+		}
+
+		.featured-content {
+			padding: 23px 21px 25px;
+		}
+
+		.related-featured h3 {
+			font-size: 25px;
+		}
+
+		.related-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.related-card .related-image {
+			aspect-ratio: 16 / 9;
+		}
+
 		.channel-cta {
 			padding: 27px 22px;
 		}
@@ -599,18 +1075,4 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 220));
 			flex-direction: column;
 		}
 	}
-
-	.youtube-video {
-	margin: 50px 0;
-	aspect-ratio: 16 / 9;
-	border-radius: 18px;
-	overflow: hidden;
-	box-shadow: 0 20px 45px rgba(0, 0, 0, .12);
-}
-
-.youtube-video iframe {
-	width: 100%;
-	height: 100%;
-	border: 0;
-}
 </style>
