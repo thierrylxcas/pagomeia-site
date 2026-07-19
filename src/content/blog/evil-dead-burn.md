@@ -3,7 +3,7 @@ title: "A Morte do Demônio: Em Chamas vale a pena?"
 slug: evil-dead-burn
 description: Achamos do balacobaco?
 pubDate: 2026-07-18
-heroImage: /images/testnovathumb-evildeaddd.png
+heroImage: /images/a-morte-do-demonio-em-chamas-6o-filme-da-franquia-evil-dead-estreia-nos-cinemas-divulgacaosony-pictures.jpg
 youtube: https://www.youtube.com/watch?v=RsCk9jddcuE&t=162s
 author: Equipe PagoMeia
 category: Terror
