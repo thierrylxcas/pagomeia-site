@@ -4,7 +4,7 @@ slug: o-que-e-o-pagomeia
 description: Conheça a história do PagoMeia, um projeto independente de cultura
   pop criado por amigos apaixonados por filmes, séries, games e entretenimento.
 pubDate: 2026-07-16
-heroImage: /images/theboys.jpg
+heroImage: /images/foto-pagomeia.png
 author: Equipe PagoMeia
 category: Cultura Pop
 tags:
