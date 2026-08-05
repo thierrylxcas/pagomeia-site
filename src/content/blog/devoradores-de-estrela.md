@@ -1,5 +1,5 @@
 ---
-title: Devoradores de Estrela é o melhor filme do ano?
+title: Devoradores de Estrelas é o melhor filme do ano?
 slug: devoradores-de-estrela
 description: Aventura espacial emocionante e divertida.
 pubDate: 2026-07-19
@@ -43,5 +43,5 @@ Sem dúvida.
 Quem espera apenas uma aventura espacial pode acabar encontrando uma das histórias mais emocionantes do gênero nos últimos anos.
 
 O filme consegue equilibrar humor, suspense, emoção e ficção científica sem perder o foco em seus personagens, entregando um final que recompensa toda a jornada.  
-  
+
 👉 **Assista à crítica completa no canal PagoMeia.**
