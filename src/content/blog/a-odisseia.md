@@ -1,5 +1,5 @@
 ---
-title: A Odisseia é um dos melhores filmes do ano?
+title: A Odisseia vai levar tudo no Oscar 2027?
 slug: a-odisseia
 description: "O épico de 3 HORAS de Christopher Nolan chegou! "
 pubDate: 2026-07-24
@@ -61,7 +61,7 @@ Sim.
 Mesmo que a história tenha problemas de ritmo e algumas decisões narrativas dividam opiniões, **A Odisseia** continua sendo uma experiência pensada para a tela grande.
 
 A fotografia, o som e a escala das cenas tornam a experiência muito mais envolvente do que provavelmente será em casa.  
-  
+
 **No vídeo completo explicamos esses pontos com mais detalhes.**  
 
 👉 **Assista à crítica completa no canal PagoMeia.**
