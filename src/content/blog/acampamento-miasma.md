@@ -33,7 +33,7 @@ Pode ser um problema de gosto musical, mas as músicas que tocam em algumas sequ
 ## Vale o ingresso?
 
 Tudo que Jane apresenta no filme funciona, nos faz refletir e viver a experiência junto das personagens. E ainda somos presenteados com sequências incríveis com baldes de sangue.   
-  
+
 **Acampamento Miasma: Adolescência, Sexo e Morte** está disponível na **MUBI**. 
 
 [👉 Assista à crítica completa no canal PagoMeia.](https://www.youtube.com/watch?v=5ZQFHL8fJtI&t=)
