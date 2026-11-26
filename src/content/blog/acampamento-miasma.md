@@ -4,7 +4,6 @@ slug: acampamento-miasma
 description: "É pra criticar, refletir, assustar, nos fazer rir ou acompanhar um
   romance? É tudo isso e muito mais! "
 pubDate: 2026-10-14
-heroImage: /images/campmiasmastill7mubi-42065424.jpeg
 youtube: https://www.youtube.com/watch?v=5ZQFHL8fJtI&t=
 author: Equipe PagoMeia
 category: Terror
