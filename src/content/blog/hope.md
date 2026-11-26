@@ -1,7 +1,8 @@
 ---
-title: Hope vale o ingresso?
+title: "Hope vale o ingresso? Assistimos o filme mais frenético do ano. "
 slug: hope
-description: "Assistimos o filme mais frenético do ano. "
+description: 'Invasão alienígina põe em risco os moradores de um pequeno
+  vilarejo. Aqui chamamos o local carinhosamente de "Arujá Coreana". '
 pubDate: 2026-10-12
 heroImage: /images/mv5bnmvkodqyotqtmzqymc00mgeylwe2odgtzwzlodu4mjjlztvkxkeyxkfqcgdeqxz3zxnszxkv1.jpg
 youtube: https://www.youtube.com/watch?v=5ZQFHL8fJtI&t=
