@@ -6,7 +6,7 @@ pubDate: 2026-10-12
 heroImage: /images/mv5bnmvkodqyotqtmzqymc00mgeylwe2odgtzwzlodu4mjjlztvkxkeyxkfqcgdeqxz3zxnszxkv1.jpg
 youtube: https://www.youtube.com/watch?v=5ZQFHL8fJtI&t=
 author: Equipe PagoMeia
-category: Cultura Pop
+category: Filmes
 tags:
   - Filmes
   - Reviews
@@ -27,7 +27,7 @@ Acompanhamos um pequeno vilarejo, uma pequena cidade, um "Arujá Coreano", onde 
 Aqui a gente tem um plus. E qual é o Plus? A Coreia do Sul sabe construir personagens que a gente tem um apego muito forte.
 
 Então, a gente acompanha o comandante, e o ponto de vista dele. Então, se ele ainda não viu a criatura, a gente também está no escuro.  
-  
+
 O melhor momento do filme é quando ele foca nas pessoas tendo a reação ao ver a criatura. Então, a partir do momento que eles passam a dar muito destaque pra criatura e o 3D não é dos melhores, a gente perde um pouco da imersão.
 
 ## Vale o ingresso?
