@@ -7,7 +7,10 @@ pubDate: 2026-10-20
 heroImage: /images/resident-evil-zach-cregger-official-trailerb6ee1200.webp
 youtube: https://www.youtube.com/watch?v=5O__FrHvEMo&t=
 author: Equipe PagoMeia
-category: Cultura Pop
+category: Terror
+tags:
+  - Terror
+  - Filmes
 readingTime: 5 min
 featured: true
 ---
